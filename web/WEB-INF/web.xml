@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <!--ComicSelectionController is mapped to the servlet name "Selection"-->
+    <servlet>
+        <!--Define the servlet name-->
+        <servlet-name>Selection</servlet-name>
+        <!--point the servlet to the file-->
+        <servlet-class>us.mattgreen.comics.controller.ComicSelectionController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--"Selection" is mapped to the url "/"-->
+    <servlet-mapping>
+        <!--the name of the servlet as defined above-->
+        <servlet-name>Selection</servlet-name>
+        <!--the url pattern that the servlet is mapped to-->
+        <url-pattern>/index.jsp</url-pattern>
+    </servlet-mapping>
+    <!--"PlaceOrderController" is mapped to the servlet name "porder"-->
+    <servlet>
+        <servlet-name>porder</servlet-name>
+        <servlet-class>us.mattgreen.comics.controller.PlaceOrderController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--"porder" is mapped to the url "/order.do"-->
+    <servlet-mapping>
+        <servlet-name>porder</servlet-name>
+        <url-pattern>/order.do</url-pattern>
+    </servlet-mapping>
+    <!--// "CartController" is mapped to the servlet name "cart"-->
+    <servlet>
+        <servlet-name>cart</servlet-name>
+        <servlet-class>us.mattgreen.comics.controller.CartController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <!--// "cart" os mapped to the url "/cart"-->
+    <servlet-mapping>
+        <servlet-name>cart</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
