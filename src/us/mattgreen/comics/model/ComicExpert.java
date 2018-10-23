@@ -6,27 +6,22 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * This class is an abstraction of a real beer expert that can make
- * recommendations about beer products based on a color preference.
+ * This class is an expert on comic books and handles pulling
+ * the comics from the database
  * 
  * @author  Textbook, with modifications by Jim Lombardo
  * @version 1.02
  */
 public class ComicExpert {
-    
-    /**
-     * Retrieves the beer recommendations.
-     * 
-     * @param color - the color preference for beer. NOTE: the color is
-     * is validated in any way and a String is required.
-     * @return a collection of beer products that are appropriate
-     * for the preferred beer color
-     */
 
+    // the list of comic books
     private ArrayList<ComicBook> comicCollection = new ArrayList<>();
 
     public ComicExpert() {
-        CreateComicDB comicCatalog = new CreateComicDB();
+
+        // run CreateComicDB to rerun the DB, commented out because it does not need
+        // to be run more than once
+        //CreateComicDB comicCatalog = new CreateComicDB();
         /*
         comicCollection.add(new ComicBook("Incredible Hulk #181",8000.00,"First Apperance of Wolverine"));
         comicCollection.add(new ComicBook("Peter Porker the Spectacular Spider-Ham #1",40.00,"Third app of Spider-Ham"));
@@ -38,27 +33,38 @@ public class ComicExpert {
         */
     }
 
+    /**
+     * get the books from the database
+     *
+     * @return List of books
+     */
     public List getBooks() {
+        // the DB URL
         final String DB_URL = "jdbc:derby:ComicDB";
         Statement stmt = null;
         Connection conn = null;
         try {
             System.out.println("Connecting to database...");
+            // get the connection to the database
             conn = DriverManager.getConnection(DB_URL);
             System.out.println("Creating statement...");
+            // create the statement
             stmt = conn.createStatement();
             String sql;
+            // the sql statement to execute
             sql = "SELECT Title, Description, Price FROM ComicBook";
+            // the results from the query
             ResultSet rs = stmt.executeQuery(sql);
 
+            // while the results object has results in it
             while (rs.next()) {
                 //Retrieve by column name
                 String id = rs.getString("Title");
                 double price = rs.getDouble("Price");
                 String descriptionString = rs.getString("Description");
 
-                //Display values
-comicCollection.add (new ComicBook(id,price,descriptionString));
+                // add the comic book to the List
+                comicCollection.add (new ComicBook(id,price,descriptionString));
             }
             /* STEP 6: Clean-up environment */
             rs.close();
@@ -84,6 +90,7 @@ comicCollection.add (new ComicBook(id,price,descriptionString));
                 se.printStackTrace();
             }//end finally try
         }//end try
+        // return the list
 return comicCollection;
     }
 }
